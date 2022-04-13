@@ -32,20 +32,20 @@ class Actor(nn.Module):
     def reset_parameters(self):
         self.fc1.weight.data.uniform_(*hidden_init(self.fc1))
         self.fc2.weight.data.uniform_(*hidden_init(self.fc2))
-        #self.fc3.weight.data.uniform_(-3e-3, 3e-3)
-        self.fc3.weight.data.uniform_(-1, 1)
+        self.fc3.weight.data.uniform_(-3e-3, 3e-3)
+        #self.fc3.weight.data.uniform_(-1, 1)
 
     def forward(self, state):
         """Build an actor (policy) network that maps states -> actions."""
         x1 = F.relu(self.fc1(state))
         x2 = F.relu(self.fc2(x1))
-        return F.tanh(self.fc3(x2))
+        return torch.tanh(self.fc3(x2))
 
 
 class Critic(nn.Module):
     """Critic (Value) Model."""
 
-    def __init__(self, state_size, action_size, seed, fcs1_units=256, fc2_units=256, fc3_units=128):
+    def __init__(self, state_size, action_size, seed, fcs1_units=512, fc2_units=512, fc3_units=256):
         """Initialize parameters and build model.
         Params
         ======
