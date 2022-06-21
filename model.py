@@ -72,7 +72,7 @@ class Critic(nn.Module):
     def forward(self, state, action):
         """Build a critic (value) network that maps (state, action) pairs -> Q-values."""
         xs = F.leaky_relu(self.fcs1(state))
-        x = torch.cat((xs, action), dim=1)
-        x = F.leaky_relu(self.fc2(x))
-        x = F.leaky_relu(self.fc3(x))
-        return self.fc4(x)
+        x1 = torch.cat((xs, action), dim=1)
+        x2 = F.leaky_relu(self.fc2(x1))
+        x3 = F.leaky_relu(self.fc3(x2))
+        return self.fc4(x3)
